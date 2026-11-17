@@ -1,244 +1,136 @@
-<!DOCTYPE html>
-<html lang="ne">
-<head>
-<meta charset="UTF-8"><!DOCTYPE html>
-<html lang="ne">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Morang Badhai Samaj</title>
-<style>
-*{box-sizing:border-box;font-family:Arial} body{margin:0;background:#ECE5DD;padding-bottom:20px}<!DOCTYPE html>
-<html lang="ne">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Morang Badhai Samaj</title>
-<style>
-*{box-sizing:border-box;font-family:Arial} body{margin:0;background:#ECE5DD;padding-bottom:20px}
-.header{background:#075E54;color:white;padding:15px;text-align:center}
-.logo{width:70px;height:70px;border-radius:50%;object-fit:cover;background:white;border:3px solid white}
-.header h2{margin:5px 0 0} .header p{margin:3px;font-size:12px;opacity:.9}
-.tabs{display:flex;background:white} .tabs button{flex:1;padding:12px 2px;border:0;background:white;font-weight:bold;font-size:13px}
-.tabs button.active{color:#075E54;border-bottom:3px solid #25D366}
-.card{background:white;margin:10px;padding:13px;border-radius:12px;box-shadow:0 1px 4px #ccc}
-input,select,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid #ddd;border-radius:8px}
-.btn{background:#25D366;color:white;border:0;padding:12px;width:100%;border-radius:8px;font-weight:bold;font-size:15px}
-.btn2{background:#075E54} .btnRed{background:#e53935}
-.member{display:flex;gap:10px;align-items:center}
-.member img{width:58px;height:58px;border-radius:50%;object-fit:cover;background:#ddd}
-.notice{background:#FFF8E1;border-left:4px solid #FF9800}
-.hisabBox{display:flex;gap:8px;text-align:center} .hisabBox div{flex:1;background:#f8f8f8;padding:10px;border-radius:10px}
-</style>
-</head>
-<body>
-<div class="header">
-<input type="file" id="logoInput" accept="image/*" hidden onchange="changeLogo(event)">
-<img id="logoImg" class="logo" src="https://via.placeholder.com/70?text=🪚" onclick="document.getElementById('logoInput').click()">
-<h2>Morang Badhai Samaj</h2>
-<p>Biratnagar, Morang | Ekata - Sahayog - Pragati</p>
-<p id="adminStatus">👤 Guest | <span onclick="adminLogin()" style="text-decoration:underline">Admin Login</span></p>
-</div>
-<div class="tabs">
-<button id="t1" class="active" onclick="show('list')">👥 Member</button>
-<button id="t2" onclick="show('add')">➕ Add</button>
-<button id="t3" onclick="show('chanda')">💰 Chanda</button>
-<button id="t4" onclick="show('notice')">📢 Notice</button>
-</div>
-<div id="listPage"><div class="card"><input id="searchBox" oninput="loadMembers()" placeholder="🔍 Naam / Gaun le khojnus..."></div><div class="card" style="text-align:center"><b id="total">Total Member: 0 Jana</b></div><div id="memberList"></div></div>
-<div id="addPage" style="display:none"><div class="card"><h3>Naya Member Add</h3><input id="mName" placeholder="Pura Naam *"><input id="mPhone" placeholder="Phone Number *"><input id="mGaun" placeholder="Gaun / Tole"><select id="mKaam"><option>Badhai Kaam</option><option>Furniture</option><option>Door / Window</option><option>Arko Kaam</option></select><input id="mPhoto" type="file" accept="image/*"><button class="btn" onclick="addMember()">Member Add Garnus ✅</button></div></div>
-<div id="chandaPage" style="display:none"><div class="card"><div class="hisabBox"><div><small>Utheko</small><br><b id="totalChanda">Rs. 0</b></div><div><small>Kharcha</small><br><b id="totalKharcha">Rs. 0</b></div><div><small>Baki</small><br><b id="baki">Rs. 0</b></div></div></div><div class="card"><h3>Chanda / Kharcha</h3><select id="cType"><option value="Chanda">💰 Chanda Utheko</option><option value="Kharcha">💸 Kharcha Bhayo</option></select><input id="cName" placeholder="Kasko / K ko lagi?"><input id="cAmt" type="number" placeholder="Rakam Rs."><button class="btn btn2" onclick="addChanda()">Save Garnus</button></div><div id="chandaList"></div></div>
-<div id="noticePage" style="display:none"><div class="card notice"><b>📢 Swagatam!</b><br>Morang Badhai Samaj ma swagat cha.</div><div class="card"><h3>Naya Notice (Admin)</h3><textarea id="nText" placeholder="Yaha notice lekhnus..."></textarea><button class="btn btn2" onclick="addNotice()">Notice Rakhnus</button></div><div id="noticeList"></div><div class="card"><h3>⚙️ Admin Setting</h3><p>Admin Password: <b>1234</b> (Pahilo)</p><input id="newPass" placeholder="Naya Password"><button class="btn" style="bac
+
 <!DOCTYPE html>
 <html lang="ne">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Morang Badhai Samaj</title>
+<title>बढई समाज मोरङ | Morang Badhai Samaj</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;font-family:Arial} body{margin:0;background:#ECE5DD;padding-bottom:20px}
-.header{background:#075E54;color:white;padding:15px;text-align:center}
-.logo{width:70px;height:70px;border-radius:50%;object-fit:cover;background:white;border:3px solid white}
-.header h2{margin:5px 0 0} .header p{margin:3px;font-size:12px;opacity:.9}
-.tabs{display:flex;background:white} .tabs button{flex:1;padding:12px 2px;border:0;background:white;font-weight:bold;font-size:13px}
-.tabs button.active{color:#075E54;border-bottom:3px solid #25D366}
-.card{background:white;margin:10px;padding:13px;border-radius:12px;box-shadow:0 1px 4px #ccc}
-input,select,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid #ddd;border-radius:8px}
-.btn{background:#25D366;color:white;border:0;padding:12px;width:100%;border-radius:8px;font-weight:bold;font-size:15px}
-.btn2{background:#075E54} .btnRed{background:#e53935}
-.member{display:flex;gap:10px;align-items:center}
-.member img{width:58px;height:58px;border-radius:50%;object-fit:cover;background:#ddd}
-.notice{background:#FFF8E1;border-left:4px solid #FF9800}
-.hisabBox{display:flex;gap:8px;text-align:center} .hisabBox div{flex:1;background:#f8f8f8;padding:10px;border-radius:10px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans Devanagari',sans-serif;background:#FFF8E8;color:#222}
+.topbar{background:#4A0710;color:#fff;padding:8px 16px;display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:6px}
+.topbar b{color:#F5D67A}
+.live-dot{width:9px;height:9px;background:#22C55E;border-radius:50%;display:inline-block;box-shadow:0 0 0 0 rgba(34,197,94,.7);animation:pulse 1.5s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.6)}70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);display:flex;align-items:center;justify-content:space-between;padding:10px 5%;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.logo{display:flex;gap:12px;align-items:center}
+.logo img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:3px solid #D4A93C}
+.logo h1{font-size:22px;color:#7A0F1F;line-height:1}
+.logo span{font-size:12px;color:#777}
+nav{display:flex;gap:18px;font-weight:700}
+.btn{background:#7A0F1F;color:#fff;padding:11px 22px;border-radius:999px;font-weight:800;text-decoration:none}
+.btn-gold{background:#D4A93C;color:#3A1A00!important}
+.hero{background:linear-gradient(135deg,#7A0F1F,#4A0710);color:#fff;padding:45px 5%;display:grid;grid-template-columns:1.1fr .9fr;gap:25px;align-items:center}
+.hero h2{font-size:50px;line-height:1.1}
+.hero h2 span{color:#F5D67A}
+.hero-card{background:#fff;color:#222;border-radius:22px;padding:16px;text-align:center}
+.hero-card img{width:100%;height:300px;object-fit:cover;border-radius:14px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:-20px 5% 0;position:relative}
+.stat{background:#fff;padding:16px;text-align:center;border-radius:16px;box-shadow:0 8px 25px rgba(0,0,0,.1);border-top:4px solid #D4A93C;position:relative}
+.stat b{font-size:30px;color:#7A0F1F}
+.online-badge{display:inline-flex;align-items:center;gap:5px;background:#E8F5E9;color:#157347;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:900;margin-top:4px}
+.total-live{background:#7A0F1F;color:#fff;padding:14px 18px;border-radius:16px;text-align:center;margin:16px 5% 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.total-live b{font-size:22px}
+section{padding:45px 5%}
+.head{text-align:center;max-width:700px;margin:0 auto 25px}
+.head h2{font-size:32px;color:#7A0F1F}
+.directory{background:#1A0A0A;color:#fff;border-radius:26px;padding:28px}
+.searchbox{display:flex;gap:8px;max-width:600px;margin:18px auto;background:#fff;border-radius:999px;padding:6px}
+.searchbox input{flex:1;border:0;outline:0;padding:12px;font-family:inherit;font-size:16px}
+.searchbox button{background:#7A0F1F;color:#fff;border:0;padding:12px 20px;border-radius:999px;font-weight:800}
+.add-box{background:#fff;color:#222;border-radius:20px;padding:20px;margin-top:20px}
+.add-box h3{color:#7A0F1F;margin-bottom:12px}
+.add-box input{width:100%;padding:12px;border:1px solid #ddd;border-radius:12px;margin-bottom:10px;font-family:inherit}
+.add-box button{background:#7A0F1F;color:#fff;border:0;padding:13px;border-radius:12px;font-weight:900;width:100%;cursor:pointer}
+.photo-preview{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #D4A93C;display:none;margin:0 auto 10px}
+.members{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.member{background:#fff;color:#222;border-radius:18px;padding:16px;text-align:center;position:relative}
+.member img{width:90px;height:90px;border-radius:50%;object-fit:cover;border:3px solid #D4A93C}
+.member b{display:block;margin-top:8px}
+.member span{font-size:13px;color:#666}
+.member a{display:inline-block;margin-top:8px;background:#E8F5E9;color:#1B6B2E;padding:6px 14px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none}
+.member .online-mini{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:#157347;font-weight:800;background:#E8F5E9;padding:3px 8px;border-radius:999px;margin-top:6px}
+.del{position:absolute;top:8px;right:8px;background:#ff4444;color:#fff;border:0;width:26px;height:26px;border-radius:50%;cursor:pointer}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 8px 20px rgba(0,0,0,.06)}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:20px;background:linear-gradient(135deg,#7A0F1F,#4A0710);color:#fff;border-radius:26px;padding:26px}
+.contact input,.contact textarea{width:100%;padding:12px;border-radius:12px;border:0;margin-bottom:10px;font-family:inherit}
+.contact button{background:#D4A93C;border:0;padding:13px;border-radius:12px;font-weight:900;width:100%}
+footer{background:#140505;color:#D8C9C9;padding:26px;text-align:center}
+.float{position:fixed;right:14px;bottom:14px;background:#25D366;color:#fff;padding:13px 18px;border-radius:999px;font-weight:900;text-decoration:none}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.members,.grid3{grid-template-columns:repeat(2,1fr)}nav{display:none}.contact{grid-template-columns:1fr}}
+@media(max-width:520px){.members{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="header">
-<input type="file" id="logoInput" accept="image/*" hidden onchange="changeLogo(event)">
-<img id="logoImg" class="logo" src="https://via.placeholder.com/70?text=🪚" onclick="document.getElementById('logoInput').click()">
-<h2>Morang Badhai Samaj</h2>
-<p>Biratnagar, Morang | Ekata - Sahayog - Pragati</p>
-<p id="adminStatus">👤 Guest | <span onclick="adminLogin()" style="text-decoration:underline">Admin Login</span></p>
+<div class="topbar"><span>📍 मोरङ | <b>बढई समाज मोरङ</b></span><span><span class="live-dot"></span> <b id="topOnline">1 Online</b> • LIVE</span></div>
+<header><div class="logo"><img src="logo.png" onerror="this.src='https://via.placeholder.com/100'"><div><h1>बढई समाज मोरङ</h1><span>MORANG BADHAI SAMAJ</span></div></div><nav><a href="#home">गृहपृष्ठ</a><a href="#members">सदस्य</a><a href="#add">थप्नुस्</a></nav><a class="btn" href="#add">+ सदस्य थप्नुस्</a></header>
+
+<section class="hero" id="home"><div><span style="background:rgba(255,255,255,.15);padding:7px 14px;border-radius:999px;font-weight:700">✨ एकता नै शक्ति हो</span><h2>बढई समाज<br><span>मोरङ</span></h2><p>मोरङभरका सम्पूर्ण बढई / विश्वकर्मा परिवारलाई एउटै डिजिटल निर्देशिकामा जोड्दै।</p><div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap"><a class="btn btn-gold" href="#members">🔍 सदस्य खोज्नुस्</a><a class="btn" style="background:#fff;color:#7A0F1F!important" href="#add">📝 नयाँ सदस्य थप्नुस्</a></div></div><div class="hero-card"><img src="logo.png" onerror="this.src='https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800'"><h3 style="color:#7A0F1F;margin-top:10px">॥ ॐ विश्वकर्मणै नमः ॥</h3><p style="color:#666">सीप, संस्कार र सम्मान — हाम्रो पहिचान</p></div></section>
+
+<!-- LIVE TOTAL BAR -->
+<div class="total-live">
+<div style="text-align:left"><span style="opacity:.8;font-size:13px">🟢 LIVE • TOTAL सदस्य</span><br><b><span id="totalCount">1</span> जना सदस्य</b> <span style="background:#22C55E;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:900">● ONLINE</span></div>
+<div style="text-align:right"><span style="opacity:.8;font-size:13px">अहिले Online</span><br><b style="color:#F5D67A"><span id="onlineCount">1</span> जना Online</b><br><span style="font-size:11px;opacity:.7">Last update: <span id="lastUpdate">भर्खरै</span></span></div>
 </div>
-<div class="tabs">
-<button id="t1" class="active" onclick="show('list')">👥 Member</button>
-<button id="t2" onclick="show('add')">➕ Add</button>
-<button id="t3" onclick="show('chanda')">💰 Chanda</button>
-<button id="t4" onclick="show('notice')">📢 Notice</button>
-</div>
-<div id="listPage"><div class="card"><input id="searchBox" oninput="loadMembers()" placeholder="🔍 Naam / Gaun le khojnus..."></div><div class="card" style="text-align:center"><b id="total">Total Member: 0 Jana</b></div><div id="memberList"></div></div>
-<div id="addPage" style="display:none"><div class="card"><h3>Naya Member Add</h3><input id="mName" placeholder="Pura Naam *"><input id="mPhone" placeholder="Phone Number *"><input id="mGaun" placeholder="Gaun / Tole"><select id="mKaam"><option>Badhai Kaam</option><option>Furniture</option><option>Door / Window</option><option>Arko Kaam</option></select><input id="mPhoto" type="file" accept="image/*"><button class="btn" onclick="addMember()">Member Add Garnus ✅</button></div></div>
-<div id="chandaPage" style="display:none"><div class="card"><div class="hisabBox"><div><small>Utheko</small><br><b id="totalChanda">Rs. 0</b></div><div><small>Kharcha</small><br><b id="totalKharcha">Rs. 0</b></div><div><small>Baki</small><br><b id="baki">Rs. 0</b></div></div></div><div class="card"><h3>Chanda / Kharcha</h3><select id="cType"><option value="Chanda">💰 Chanda Utheko</option><option value="Kharcha">💸 Kharcha Bhayo</option></select><input id="cName" placeholder="Kasko / K ko lagi?"><input id="cAmt" type="number" placeholder="Rakam Rs."><button class="btn btn2" onclick="addChanda()">Save Garnus</button></div><div id="chandaList"></div></div>
-<div id="noticePage" style="display:none"><div class="card notice"><b>📢 Swagatam!</b><br>Morang Badhai Samaj ma swagat cha.</div><div class="card"><h3>Naya Notice (Admin)</h3><textarea id="nText" placeholder="Yaha notice lekhnus..."></textarea><button class="btn btn2" onclick="addNotice()">Notice Rakhnus</button></div><div id="noticeList"></div><div class="card"><h3>⚙️ Admin Setting</h3><p>Admin Password: <b>1234</b> (Pahilo)</p><input id="newPass" placeholder="Naya Password"><button class="btn" style="bac
-.header{background:#075E54;color:white;padding:15px;text-align:center}
-.logo{width:70px;height:70px;border-radius:50%;object-fit:cover;background:white;border:3px solid white}
-.header h2{margin:5px 0 0} .header p{margin:3px;font-size:12px;opacity:.9}
-.tabs{display:flex;background:white} .tabs button{flex:1;padding:12px 2px;border:0;background:white;font-weight:bold;font-size:13px}
-.tabs button.active{color:#075E54;border-bottom:3px solid #25D366}
-.card{background:white;margin:10px;padding:13px;border-radius:12px;box-shadow:0 1px 4px #ccc}
-input,select,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid #ddd;border-radius:8px}
-.btn{background:#25D366;color:white;border:0;padding:12px;width:100%;border-radius:8px;font-weight:bold;font-size:15px}
-.btn2{background:#075E54} .btnRed{background:#e53935}
-.member{display:flex;gap:10px;align-items:center}
-.member img{width:58px;height:58px;border-radius:50%;object-fit:cover;background:#ddd}
-.notice{background:#FFF8E1;border-left:4px solid #FF9800}
-.hisabBox{display:flex;gap:8px;text-align:center} .hisabBox div{flex:1;background:#f8f8f8;padding:10px;border-radius:10px}
-</style>
-</head>
-<body>
-<div class="header">
-<input type="file" id="logoInput" accept="image/*" hidden onchange="changeLogo(event)">
-<img id="logoImg" class="logo" src="https://via.placeholder.com/70?text=🪚" onclick="document.getElementById('logoInput').click()">
-<h2>Morang Badhai Samaj</h2>
-<p>Biratnagar, Morang | Ekata - Sahayog - Pragati</p>
-<p id="adminStatus">👤 Guest | <span onclick="adminLogin()" style="text-decoration:underline">Admin Login</span></p>
-</div>
-<div class="tabs">
-<button id="t1" class="active" onclick="show('list')">👥 Member</button>
-<button id="t2" onclick="show('add')">➕ Add</button>
-<button id="t3" onclick="show('chanda')">💰 Chanda</button>
-<button id="t4" onclick="show('notice')">📢 Notice</button>
-</div>
-<div id="listPage"><div class="card"><input id="searchBox" oninput="loadMembers()" placeholder="🔍 Naam / Gaun le khojnus..."></div><div class="card" style="text-align:center"><b id="total">Total Member: 0 Jana</b></div><div id="memberList"></div></div>
-<div id="addPage" style="display:none"><div class="card"><h3>Naya Member Add</h3><input id="mName" placeholder="Pura Naam *"><input id="mPhone" placeholder="Phone Number *"><input id="mGaun" placeholder="Gaun / Tole"><select id="mKaam"><option>Badhai Kaam</option><option>Furniture</option><option>Door / Window</option><option>Arko Kaam</option></select><input id="mPhoto" type="file" accept="image/*"><button class="btn" onclick="addMember()">Member Add Garnus ✅</button></div></div>
-<div id="chandaPage" style="display:none"><div class="card"><div class="hisabBox"><div><small>Utheko</small><br><b id="totalChanda">Rs. 0</b></div><div><small>Kharcha</small><br><b id="totalKharcha">Rs. 0</b></div><div><small>Baki</small><br><b id="baki">Rs. 0</b></div></div></div><div class="card"><h3>Chanda / Kharcha</h3><select id="cType"><option value="Chanda">💰 Chanda Utheko</option><option value="Kharcha">💸 Kharcha Bhayo</option></select><input id="cName" placeholder="Kasko / K ko lagi?"><input id="cAmt" type="number" placeholder="Rakam Rs."><button class="btn btn2" onclick="addChanda()">Save Garnus</button></div><div id="chandaList"></div></div>
-<div id="noticePage" style="display:none"><div class="card notice"><b>📢 Swagatam!</b><br>Morang Badhai Samaj ma swagat cha.</div><div class="card"><h3>Naya Notice (Admin)</h3><textarea id="nText" placeholder="Yaha notice lekhnus..."></textarea><button class="btn btn2" onclick="addNotice()">Notice Rakhnus</button></div><div id="noticeList"></div><div class="card"><h3>⚙️ Admin Setting</h3><p>Admin Password: <b>1234</b> (Pahilo)</p><input id="newPass" placeholder="Naya Password"><button class="btn" style="bac
-<!DOCTYPE html>
-<html lang="ne">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Morang Badhai Samaj</title>
-<style>
-*{box-sizing:border-box;font-family:Arial} body{margin:0;background:#ECE5DD;padding-bottom:20px}
-.header{background:#075E54;color:white;padding:15px;text-align:center}
-.logo{width:70px;height:70px;border-radius:50%;object-fit:cover;background:white;border:3px solid white}
-.header h2{margin:5px 0 0} .header p{margin:3px;font-size:12px;opacity:.9}
-.tabs{display:flex;background:white} .tabs button{flex:1;padding:12px 2px;border:0;background:white;font-weight:bold;font-size:13px}
-.tabs button.active{color:#075E54;border-bottom:3px solid #25D366}
-.card{background:white;margin:10px;padding:13px;border-radius:12px;box-shadow:0 1px 4px #ccc}
-input,select,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid #ddd;border-radius:8px}
-.btn{background:#25D366;color:white;border:0;padding:12px;width:100%;border-radius:8px;font-weight:bold;font-size:15px}
-.btn2{background:#075E54} .btnRed{background:#e53935}
-.member{display:flex;gap:10px;align-items:center}
-.member img{width:58px;height:58px;border-radius:50%;object-fit:cover;background:#ddd}
-.notice{background:#FFF8E1;border-left:4px solid #FF9800}
-.hisabBox{display:flex;gap:8px;text-align:center} .hisabBox div{flex:1;background:#f8f8f8;padding:10px;border-radius:10px}
-</style>
-</head>
-<body>
-<div class="header">
-<input type="file" id="logoInput" accept="image/*" hidden onchange="changeLogo(event)">
-<img id="logoImg" class="logo" src="https://via.placeholder.com/70?text=🪚" onclick="document.getElementById('logoInput').click()">
-<h2>Morang Badhai Samaj</h2>
-<p>Biratnagar, Morang | Ekata - Sahayog - Pragati</p>
-<p id="adminStatus">👤 Guest | <span onclick="adminLogin()" style="text-decoration:underline">Admin Login</span></p>
-</div>
-<div class="tabs">
-<button id="t1" class="active" onclick="show('list')">👥 Member</button>
-<button id="t2" onclick="show('add')">➕ Add</button>
-<button id="t3" onclick="show('chanda')">💰 Chanda</button>
-<button id="t4" onclick="show('notice')">📢 Notice</button>
-</div>
-<div id="listPage"><div class="card"><input id="searchBox" oninput="loadMembers()" placeholder="🔍 Naam / Gaun le khojnus..."></div><div class="card" style="text-align:center"><b id="total">Total Member: 0 Jana</b></div><div id="memberList"></div></div>
-<div id="addPage" style="display:none"><div class="card"><h3>Naya Member Add</h3><input id="mName" placeholder="Pura Naam *"><input id="mPhone" placeholder="Phone Number *"><input id="mGaun" placeholder="Gaun / Tole"><select id="mKaam"><option>Badhai Kaam</option><option>Furniture</option><option>Door / Window</option><option>Arko Kaam</option></select><input id="mPhoto" type="file" accept="image/*"><button class="btn" onclick="addMember()">Member Add Garnus ✅</button></div></div>
-<div id="chandaPage" style="display:none"><div class="card"><div class="hisabBox"><div><small>Utheko</small><br><b id="totalChanda">Rs. 0</b></div><div><small>Kharcha</small><br><b id="totalKharcha">Rs. 0</b></div><div><small>Baki</small><br><b id="baki">Rs. 0</b></div></div></div><div class="card"><h3>Chanda / Kharcha</h3><select id="cType"><option value="Chanda">💰 Chanda Utheko</option><option value="Kharcha">💸 Kharcha Bhayo</option></select><input id="cName" placeholder="Kasko / K ko lagi?"><input id="cAmt" type="number" placeholder="Rakam Rs."><button class="btn btn2" onclick="addChanda()">Save Garnus</button></div><div id="chandaList"></div></div>
-<div id="noticePage" style="display:none"><div class="card notice"><b>📢 Swagatam!</b><br>Morang Badhai Samaj ma swagat cha.</div><div class="card"><h3>Naya Notice (Admin)</h3><textarea id="nText" placeholder="Yaha notice lekhnus..."></textarea><button class="btn btn2" onclick="addNotice()">Notice Rakhnus</button></div><div id="noticeList"></div><div class="card"><h3>⚙️ Admin Setting</h3><p>Admin Password: <b>1234</b> (Pahilo)</p><input id="newPass" placeholder="Naya Password"><button class="btn" style="bac
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Morang Badhai Samaj</title>
-<style>
-*{box-sizing:border-box;font-family:Arial} body{margin:0;background:#ECE5DD;padding-bottom:20px}
-.header{background:#075E54;color:white;padding:15px;text-align:center}
-.logo{width:70px;height:70px;border-radius:50%;object-fit:cover;background:white;border:3px solid white}
-.header h2{margin:5px 0 0} .header p{margin:3px;font-size:12px;opacity:.9}
-.tabs{display:flex;background:white} .tabs button{flex:1;padding:12px 2px;border:0;background:white;font-weight:bold;font-size:13px}
-.tabs button.active{color:#075E54;border-bottom:3px solid #25D366}
-.card{background:white;margin:10px;padding:13px;border-radius:12px;box-shadow:0 1px 4px #ccc}
-input,select,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid #ddd;border-radius:8px}
-.btn{background:#25D366;color:white;border:0;padding:12px;width:100%;border-radius:8px;font-weight:bold;font-size:15px}
-.btn2{background:#075E54} .btnRed{background:#e53935}
-.member{display:flex;gap:10px;align-items:center}
-.member img{width:58px;height:58px;border-radius:50%;object-fit:cover;background:#ddd}
-.notice{background:#FFF8E1;border-left:4px solid #FF9800}
-.hisabBox{display:flex;gap:8px;text-align:center} .hisabBox div{flex:1;background:#f8f8f8;padding:10px;border-radius:10px}
-</style>
-</head>
-<body>
-<div class="header">
-<input type="file" id="logoInput" accept="image/*" hidden onchange="changeLogo(event)">
-<img id="logoImg" class="logo" src="https://via.placeholder.com/70?text=🪚" onclick="document.getElementById('logoInput').click()">
-<h2>Morang Badhai Samaj</h2>
-<p>Biratnagar, Morang | Ekata - Sahayog - Pragati</p>
-<p id="adminStatus">👤 Guest | <span onclick="adminLogin()" style="text-decoration:underline">Admin Login</span></p>
-</div>
-<div class="tabs">
-<button id="t1" class="active" onclick="show('list')">👥 Member</button>
-<button id="t2" onclick="show('add')">➕ Add</button>
-<button id="t3" onclick="show('chanda')">💰 Chanda</button>
-<button id="t4" onclick="show('notice')">📢 Notice</button>
-</div>
-<div id="listPage"><div class="card"><input id="searchBox" oninput="loadMembers()" placeholder="🔍 Naam / Gaun le khojnus..."></div><div class="card" style="text-align:center"><b id="total">Total Member: 0 Jana</b></div><div id="memberList"></div></div>
-<div id="addPage" style="display:none"><div class="card"><h3>Naya Member Add</h3><input id="mName" placeholder="Pura Naam *"><input id="mPhone" placeholder="Phone Number *"><input id="mGaun" placeholder="Gaun / Tole"><select id="mKaam"><option>Badhai Kaam</option><option>Furniture</option><option>Door / Window</option><option>Arko Kaam</option></select><input id="mPhoto" type="file" accept="image/*"><button class="btn" onclick="addMember()">Member Add Garnus ✅</button></div></div>
-<div id="chandaPage" style="display:none"><div class="card"><div class="hisabBox"><div><small>Utheko</small><br><b id="totalChanda">Rs. 0</b></div><div><small>Kharcha</small><br><b id="totalKharcha">Rs. 0</b></div><div><small>Baki</small><br><b id="baki">Rs. 0</b></div></div></div><div class="card"><h3>Chanda / Kharcha</h3><select id="cType"><option value="Chanda">💰 Chanda Utheko</option><option value="Kharcha">💸 Kharcha Bhayo</option></select><input id="cName" placeholder="Kasko / K ko lagi?"><input id="cAmt" type="number" placeholder="Rakam Rs."><button class="btn btn2" onclick="addChanda()">Save Garnus</button></div><div id="chandaList"></div></div>
-<div id="noticePage" style="display:none"><div class="card notice"><b>📢 Swagatam!</b><br>Morang Badhai Samaj ma swagat cha.</div><div class="card"><h3>Naya Notice (Admin)</h3><textarea id="nText" placeholder="Yaha notice lekhnus..."></textarea><button class="btn btn2" onclick="addNotice()">Notice Rakhnus</button></div><div id="noticeList"></div><div class="card"><h3>⚙️ Admin Setting</h3><p>Admin Password: <b>1234</b> (Pahilo)</p><input id="newPass" placeholder="Naya Password"><button class="btn" style="bac
-<!DOCTYPE html>
-<html lang="ne">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Morang Badhai Samaj</title>
-<style>
-*{box-sizing:border-box;font-family:Arial} body{margin:0;background:#ECE5DD;padding-bottom:20px}
-.header{background:#075E54;color:white;padding:15px;text-align:center}
-.logo{width:70px;height:70px;border-radius:50%;object-fit:cover;background:white;border:3px solid white}
-.header h2{margin:5px 0 0} .header p{margin:3px;font-size:12px;opacity:.9}
-.tabs{display:flex;background:white} .tabs button{flex:1;padding:12px 2px;border:0;background:white;font-weight:bold;font-size:13px}
-.tabs button.active{color:#075E54;border-bottom:3px solid #25D366}
-.card{background:white;margin:10px;padding:13px;border-radius:12px;box-shadow:0 1px 4px #ccc}
-input,select,textarea{width:100%;padding:11px;margin:6px 0;border:1px solid #ddd;border-radius:8px}
-.btn{background:#25D366;color:white;border:0;padding:12px;width:100%;border-radius:8px;font-weight:bold;font-size:15px}
-.btn2{background:#075E54} .btnRed{background:#e53935}
-.member{display:flex;gap:10px;align-items:center}
-.member img{width:58px;height:58px;border-radius:50%;object-fit:cover;background:#ddd}
-.notice{background:#FFF8E1;border-left:4px solid #FF9800}
-.hisabBox{display:flex;gap:8px;text-align:center} .hisabBox div{flex:1;background:#f8f8f8;padding:10px;border-radius:10px}
-</style>
-</head>
-<body>
-<div class="header">
-<input type="file" id="logoInput" accept="image/*" hidden onchange="changeLogo(event)">
-<img id="logoImg" class="logo" src="https://via.placeholder.com/70?text=🪚" onclick="document.getElementById('logoInput').click()">
-<h2>Morang Badhai Samaj</h2>
-<p>Biratnagar, Morang | Ekata - Sahayog - Pragati</p>
-<p id="adminStatus">👤 Guest | <span onclick="adminLogin()" style="text-decoration:underline">Admin Login</span></p>
-</div>
-<div class="tabs">
-<button id="t1" class="active" onclick="show('list')">👥 Member</button>
-<button id="t2" onclick="show('add')">➕ Add</button>
-<button id="t3" onclick="show('chanda')">💰 Chanda</button>
-<button id="t4" onclick="show('notice')">📢 Notice</button>
-</div>
-<div id="listPage"><div class="card"><input id="searchBox" oninput="loadMembers()" placeholder="🔍 Naam / Gaun le khojnus..."></div><div class="card" style="text-align:center"><b id="total">Total Member: 0 Jana</b></div><div id="memberList"></div></div>
-<div id="addPage" style="display:none"><div class="card"><h3>Naya Member Add</h3><input id="mName" placeholder="Pura Naam *"><input id="mPhone" placeholder="Phone Number *"><input id="mGaun" placeholder="Gaun / Tole"><select id="mKaam"><option>Badhai Kaam</option><option>Furniture</option><option>Door / Window</option><option>Arko Kaam</option></select><input id="mPhoto" type="file" accept="image/*"><button class="btn" onclick="addMember()">Member Add Garnus ✅</button></div></div>
-<div id="chandaPage" style="display:none"><div class="card"><div class="hisabBox"><div><small>Utheko</small><br><b id="totalChanda">Rs. 0</b></div><div><small>Kharcha</small><br><b id="totalKharcha">Rs. 0</b></div><div><small>Baki</small><br><b id="baki">Rs. 0</b></div></div></div><div class="card"><h3>Chanda / Kharcha</h3><select id="cType"><option value="Chanda">💰 Chanda Utheko</option><option value="Kharcha">💸 Kharcha Bhayo</option></select><input id="cName" placeholder="Kasko / K ko lagi?"><input id="cAmt" type="number" placeholder="Rakam Rs."><button class="btn btn2" onclick="addChanda()">Save Garnus</button></div><div id="chandaList"></div></div>
-<div id="noticePage" style="display:none"><div class="card notice"><b>📢 Swagatam!</b><br>Morang Badhai Samaj ma swagat cha.</div><div class="card"><h3>Naya Notice (Admin)</h3><textarea id="nText" placeholder="Yaha notice lekhnus..."></textarea><button class="btn btn2" onclick="addNotice()">Notice Rakhnus</button></div><div id="noticeList"></div><div class="card"><h3>⚙️ Admin Setting</h3><p>Admin Password: <b>1234</b> (Pahilo)</p><input id="newPass" placeholder="Naya Password"><button class="btn" style="bac
+
+<div class="stats"><div class="stat"><b id="count2">1</b><div>जम्मा सदस्य</div><span class="online-badge"><span class="live-dot"></span> <span id="onlineBadge">1 Online</span></span></div><div class="stat"><b>मोरङ</b><div>जिल्ला</div><span class="online-badge"><span class="live-dot"></span> Live</span></div><div class="stat"><b>उर्लाबारी</b><div>मुख्य क्षेत्र</div><span class="online-badge"><span class="live-dot"></span> Live</span></div><div class="stat"><b>100%</b><div>विश्वास</div><span class="online-badge"><span class="live-dot"></span> Active</span></div></div>
+
+<section id="members"><div class="directory"><div class="head" style="color:#fff"><h2 style="color:#fff">डिजिटल निर्देशिका • <span style="color:#22C55E">● LIVE</span></h2><p style="color:#D8C9C9">Total: <b id="totalInDir">1</b> जना | <span style="color:#7CFF9A">● <span id="onlineInDir">1</span> Online</span></p></div><div class="searchbox"><input id="search" placeholder="जस्तै: सन्तोष, उर्लाबारी..." onkeyup="filterMembers()"><button onclick="filterMembers()">खोज्नुस्</button></div><div class="members" id="memberList"></div>
+
+<div class="add-box" id="add"><h3>➕ नयाँ सदस्य थप्नुस् (फोटो सहित) — थप्ने बित्तिकै Total Live बढ्छ</h3><img id="preview" class="photo-preview"><input type="file" id="photoInput" accept="image/*" onchange="previewPhoto(event)"><input id="fName" placeholder="पूरा नाम *"><input id="fPhone" placeholder="मोबाइल नम्बर *"><input id="fPlace" placeholder="ठेगाना * जस्तै: उर्लाबारी - 7"><input id="fWork" placeholder="काम / व्यवसाय"><button onclick="addMember()">सदस्य थप्नुस् ✅ Total बढाउनुस्</button><p id="addMsg" style="text-align:center;font-weight:800;color:green;margin-top:8px"></p></div>
+</div></section>
+
+<section><div class="head"><h2>हाम्रा सेवा</h2></div><div class="grid3"><div class="card"><h3>🪑 फर्निचर अर्डर</h3><p>दरबार, सोफा, बेड, दराज</p></div><div class="card"><h3>🏠 झ्याल-ढोका</h3><p>नयाँ घरको झ्याल, ढोका, किचन</p></div><div class="card"><h3>🔧 मर्मत सेवा</h3><p>पुरानो फर्निचर मर्मत र पलिस</p></div></div></section>
+
+<section id="contact"><div class="contact"><div><h2>सम्पर्क 🙏</h2><p>📞 <b>9815996894 - सन्तोष शर्मा</b><br>📍 <b>उर्लाबारी - 7, मोरङ</b></p><p style="margin-top:10px"><span class="live-dot"></span> अहिले <b id="contactOnline">1</b> जना Online छन्</p></div><form onsubmit="event.preventDefault();document.getElementById('cmsg').innerText='✅ धन्यवाद!'"><input placeholder="पूरा नाम"><input placeholder="मोबाइल नम्बर"><textarea rows="3" placeholder="सन्देश..."></textarea><button>पठाउनुस् →</button><p id="cmsg" style="text-align:center;font-weight:800;margin-top:8px"></p></form></div></section>
+
+<footer><b style="color:#fff">बढई समाज मोरङ</b><br>© 2026 • एकता • सीप • संस्कार • विकास</footer>
+<a class="float" href="https://wa.me/9779815996894">💬 WhatsApp</a>
+
+<script>
+let defaultMembers=[{name:"सन्तोष शर्मा",phone:"9815996894",place:"उर्लाबारी - 7",work:"बढई समाज मोरङ - सदस्य",img:"https://i.pravatar.cc/150?img=12",online:true}];
+let saved=JSON.parse(localStorage.getItem('morang_members')||'[]');
+let members=[...defaultMembers,...saved];
+let tempPhoto="";
+let onlineBase=members.length;
+function updateLiveCounts(){
+  // Online = Total को 60% - 100% बीच Live घटबढ
+  let total=members.length;
+  let online=Math.max(1, Math.min(total, Math.round(total*0.7 + Math.random()*Math.max(1,total*0.3))));
+  // यदि 1 जना मात्र छ भने 1 नै देखाउने
+  if(total===1) online=1;
+  document.getElementById('totalCount').innerText=total;
+  document.getElementById('count2').innerText=total;
+  document.getElementById('totalInDir').innerText=total;
+  document.getElementById('onlineCount').innerText=online;
+  document.getElementById('onlineBadge').innerText=online+" Online";
+  document.getElementById('onlineInDir').innerText=online;
+  document.getElementById('topOnline').innerText=online+" Online";
+  document.getElementById('contactOnline').innerText=online;
+  document.getElementById('lastUpdate').innerText=new Date().toLocaleTimeString('ne-NP',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+function previewPhoto(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=function(ev){tempPhoto=ev.target.result;let p=document.getElementById('preview');p.src=tempPhoto;p.style.display='block'};r.readAsDataURL(f)}
+function render(list){
+  document.getElementById('memberList').innerHTML=list.map((m,i)=>{
+    let isOnline = i===0 ? true : Math.random()>0.3;
+    return `<div class="member">${i>0?`<button class="del" onclick="deleteMember(${i})">✕</button>`:''}<img src="${m.img}"><b>${m.name}</b><span>${m.place} • ${m.work}</span><br><span class="online-mini"><span class="live-dot" style="width:7px;height:7px"></span> ${isOnline?'Online':'Recently Active'}</span><br><a href="tel:${m.phone}">📞 ${m.phone}</a><br><a href="https://wa.me/977${m.phone}" style="background:#25D366;color:#fff">💬 WhatsApp</a></div>`
+  }).join('');
+  updateLiveCounts();
+}
+function filterMembers(){let q=document.getElementById('search').value.toLowerCase();render(members.filter(m=>(m.name+m.place+m.work+m.phone).toLowerCase().includes(q)))}
+function addMember(){
+  let n=document.getElementById('fName').value.trim(),p=document.getElementById('fPhone').value.trim(),pl=document.getElementById('fPlace').value.trim(),w=document.getElementById('fWork').value.trim()||'बढई / विश्वकर्मा';
+  if(!n||!p||!pl){alert('कृपया नाम, नम्बर र ठेगाना भर्नुस्');return}
+  let nm={name:n,phone:p,place:pl,work:w,img:tempPhoto||'https://i.pravatar.cc/150?img=32',online:true};
+  saved.push(nm);localStorage.setItem('morang_members',JSON.stringify(saved));members=[...defaultMembers,...saved];render(members);
+  document.getElementById('addMsg').innerText='✅ '+n+' थपियो! अब Total '+members.length+' जना भयो • LIVE Update भयो';
+  ['fName','fPhone','fPlace','fWork'].forEach(id=>document.getElementById(id).value='');tempPhoto='';document.getElementById('preview').style.display='none';
+}
+function deleteMember(idx){if(!confirm('हटाउने हो?'))return;let ri=idx-1;saved.splice(ri,1);localStorage.setItem('morang_members',JSON.stringify(saved));members=[...defaultMembers,...saved];render(members)}
+render(members);
+setInterval(updateLiveCounts, 3000);
+</script>
+</body>
+</html>
